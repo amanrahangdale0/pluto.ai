@@ -1,0 +1,327 @@
+/* ============================================================
+   ResumeAI — Design System (dark glassmorphism + electric accents)
+   Fonts (Syne / DM Sans) are loaded via <link> in __root.tsx
+   ============================================================ */
+
+:root {
+  --clr-bg: #0a0a0f;
+  --clr-surface: #111118;
+  --clr-surface-2: #1a1a26;
+  --clr-border: #2a2a3e;
+  --clr-accent: #7c6fff;
+  --clr-accent-2: #ff6b8a;
+  --clr-accent-3: #00d4aa;
+  --clr-amber: #ffb547;
+  --clr-text: #f0eff8;
+  --clr-muted: #8b8ba8;
+
+  --font-head: "Syne", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+}
+
+html,
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-head {
+  font-family: var(--font-head);
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--clr-accent) 40%, transparent);
+  color: var(--clr-text);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--clr-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--clr-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-accent);
+}
+
+/* ---------- Reusable surfaces ---------- */
+.glass {
+  background: rgba(26, 26, 38, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.glass-strong {
+  background: rgba(17, 17, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--clr-accent), var(--clr-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-tri {
+  background: linear-gradient(
+    120deg,
+    var(--clr-accent),
+    var(--clr-accent-2),
+    var(--clr-accent-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Gradient sweep button ---------- */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--clr-accent), var(--clr-accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
+}
+.btn-sweep:hover::before {
+  transform: scaleX(1);
+}
+
+/* ---------- Shimmer (idle gradient on primary buttons) ---------- */
+.shimmer-bg {
+  background: linear-gradient(
+    100deg,
+    var(--clr-accent) 0%,
+    var(--clr-accent-2) 40%,
+    var(--clr-accent) 80%
+  );
+  background-size: 200% auto;
+  animation: shimmerMove 3s linear infinite;
+}
+@keyframes shimmerMove {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ---------- Skeleton shimmer ---------- */
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.03) 30%,
+    rgba(124, 111, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.03) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* ---------- Hero blobs ---------- */
+@keyframes blobFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 10px) scale(0.95);
+  }
+}
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.55;
+  will-change: transform;
+}
+
+/* ---------- Pulsing dot ---------- */
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 170, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 212, 170, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 212, 170, 0);
+  }
+}
+.pulse-dot {
+  animation: pulseDot 2s infinite;
+}
+
+/* ---------- Generate button glow ring ---------- */
+@keyframes glowRing {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(124, 111, 255, 0.5),
+      0 0 24px 0 rgba(255, 107, 138, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(124, 111, 255, 0),
+      0 0 40px 6px rgba(255, 107, 138, 0.45);
+  }
+}
+.glow-ring {
+  animation: glowRing 2.4s ease-in-out infinite;
+}
+
+/* ---------- Loading orb ---------- */
+@keyframes orbPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.orb-ring {
+  animation: orbPulse 1.8s ease-out infinite;
+}
+@keyframes orbSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.orb-core {
+  background: conic-gradient(
+    from 0deg,
+    var(--clr-accent),
+    var(--clr-accent-2),
+    var(--clr-accent-3),
+    var(--clr-accent)
+  );
+  animation: orbSpin 4s linear infinite;
+}
+
+/* ---------- Grid overlay drift ---------- */
+@keyframes gridDrift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 60px;
+  }
+}
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(124, 111, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 111, 255, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridDrift 12s linear infinite;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+/* ---------- Scanline overlay ---------- */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ---------- Floating label inputs ---------- */
+.field {
+  position: relative;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1rem 0.55rem;
+  color: var(--clr-text);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.field textarea {
+  padding-top: 1.6rem;
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(124, 111, 255, 0.18);
+}
+.field label {
+  position: absolute;
+  left: 1rem;
+  top: 0.95rem;
+  color: var(--clr-muted);
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: all 0.18s ease;
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label {
+  top: 0.4rem;
+  left: 1rem;
+  font-size: 0.7rem;
+  color: var(--clr-accent);
+}
+
+/* ---------- Print: only resume preview ---------- */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #resume-print,
+  #resume-print * {
+    visibility: visible !important;
+  }
+  #resume-print {
+    position: absolute !important;
+    inset: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
